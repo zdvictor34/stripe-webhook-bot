@@ -5,6 +5,11 @@ import config
 import stripe
 import os
 import sqlite3
+app = Flask(__name__)
+
+bot = Bot(token=config.TELEGRAM_TOKEN)
+dispatcher = Dispatcher(bot=bot, update_queue=None, workers=1, use_context=True)
+
 from datetime import datetime, timedelta
 
 # --- Setup ---
