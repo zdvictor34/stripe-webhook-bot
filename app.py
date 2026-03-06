@@ -8,36 +8,20 @@ PAYMENT_LINK = "https://TU_LINK_DE_PAGO"
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
-    args = context.args
-
     keyboard = [
         [InlineKeyboardButton("🔥 Acceder al VIP de Jennifer", url=PAYMENT_LINK)]
     ]
 
     reply_markup = InlineKeyboardMarkup(keyboard)
 
-    if args and args[0] == "vip":
-
-        await update.message.reply_text(
+    await update.message.reply_text(
 """🔥 Hola, soy Jennifer
 
-Estás a un paso de entrar a mi contenido privado 🔞
+Bienvenido a mi chat privado 🔞
 
-Pulsa el botón para acceder al VIP""",
+Escribe /VIP para acceder al contenido""",
         reply_markup=reply_markup
-        )
-
-    else:
-
-        await update.message.reply_text(
-"""🔥 Hola, soy Jennifer
-
-Bienvenido a mi chat privado.
-
-Escribe:
-
-/VIP"""
-        )
+    )
 
 
 async def vip(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -49,16 +33,21 @@ async def vip(update: Update, context: ContextTypes.DEFAULT_TYPE):
     reply_markup = InlineKeyboardMarkup(keyboard)
 
     await update.message.reply_text(
-        "Pulsa el botón para acceder:",
+        "Pulsa el botón para desbloquear el VIP:",
         reply_markup=reply_markup
     )
 
 
-app = ApplicationBuilder().token(TOKEN).build()
+def main():
+    app = ApplicationBuilder().token(TOKEN).build()
 
-app.add_handler(CommandHandler("start", start))
-app.add_handler(CommandHandler("vip", vip))
+    app.add_handler(CommandHandler("start", start))
+    app.add_handler(CommandHandler("vip", vip))
 
-print("BOT DE JENNIFER INICIADO")
+    print("BOT DE JENNIFER INICIADO")
 
-app.run_polling()
+    app.run_polling()
+
+
+if __name__ == "__main__":
+    main()
