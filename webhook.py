@@ -20,8 +20,9 @@ init_db()
 
 @app.route("/webhook", methods=["POST"])
 def webhook():
-payload = request.data
-sig_header = request.headers.get("Stripe-Signature")
+    
+    payload = request.data
+    sig_header = request.headers.get("Stripe-Signature")
 
 try:
     event = stripe.Webhook.construct_event(
