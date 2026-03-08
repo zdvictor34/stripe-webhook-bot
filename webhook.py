@@ -14,7 +14,7 @@ VIP_DAYS = int(os.getenv("VIP_DAYS", 30))
 stripe.api_key = STRIPE_SECRET
 bot = Bot(token=BOT_TOKEN)
 
-app = Flask(**name**)
+app = Flask(__name__)
 
 init_db()
 
