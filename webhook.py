@@ -2,27 +2,20 @@ import os
 import stripe
 from flask import Flask, request
 from telegram import Bot
-
 from database import init_db, add_or_update_user, is_user_active
-
 BOT_TOKEN = os.getenv("BOT_TOKEN")
 STRIPE_SECRET = os.getenv("STRIPE_SECRET")
 ENDPOINT_SECRET = os.getenv("ENDPOINT_SECRET")
 GROUP_ID = int(os.getenv("GROUP_ID"))
 VIP_DAYS = int(os.getenv("VIP_DAYS", 30))
-
 stripe.api_key = STRIPE_SECRET
 bot = Bot(token=BOT_TOKEN)
-
-app = Flask(__name__)
-
+app = Flask(name)
 init_db()
-
 @app.route("/webhook", methods=["POST"])
 def webhook():
-    
-    payload = request.data
-    sig_header = request.headers.get("Stripe-Signature")
+payload = request.data
+sig_header = request.headers.get("Stripe-Signature")
 
 try:
     event = stripe.Webhook.construct_event(
@@ -61,11 +54,5 @@ if event["type"] == "checkout.session.completed":
         pass
 
 return "", 200
-```
-
-if **name** == "**main**":
-app.run(
-host="0.0.0.0",
-port=int(os.getenv("PORT", 8080))
-)
-
+if name == "main":
+app.run(host="0.0.0.0", port=int(os.getenv("PORT", 8080))
